@@ -9,8 +9,18 @@ test('Display renders properly', () => {
 test('cannot be closed or opened if it is locked', () => {
     const toggle = jest.fn();
     const { getByText } = render(<Controls
-        locked closed toggle={toggle}/>);
+        locked closed toggle={toggle} />);
     const openGate = getByText(/open gate/i);
     fireEvent.click(openGate);
     expect(toggle).not.toHaveBeenCalled();
 });
+
+test('can be opened or closed if it is unlocked', () => {
+    const toggle = jest.fn();
+    const { getByText } = render(<Controls 
+        locked={false} closed={false} toggle={toggle} />);
+    const closeGate = getByText(/close gate/i);
+    fireEvent.click(closeGate);
+    expect(toggle).not.toHaveBeenCalled();
+});
+
